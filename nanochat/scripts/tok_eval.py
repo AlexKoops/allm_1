@@ -5,6 +5,16 @@ Evaluate compression ratio of the tokenizer.
 from nanochat.tokenizer import get_tokenizer, RustBPETokenizer
 from nanochat.dataset import parquets_iter_batched
 
+# Random piece of english text from randompassages.com, gotten on september 15th 2026
+english_text = r"""
+She would have done anything then, as Nancy and George walked down the aisle together, to join the side of sweetness, certainty and innocence,
+knowing she could begin her life without feeling that she had done something foolish and hurtful. No matter what she decided, she thought, 
+there would not be a way to avoid the consequences of what she had done, or what she might do now. It occurred to her, 
+as she walked down the aisle with Jim and her mother and joined the well-wishers outside the church, where the weather had brightened, 
+that she was sure that she did not love Tony now. He seemed part of a dream from which she had woken with considerable force some time before, 
+and in this waking time his presence, once so solid, lacked any substance or form; it was merely a shadow at the edge of every moment of the day and night.
+""".strip()
+
 # Random text I got from a random website this morning
 news_text = r"""
 (Washington, D.C., July 9, 2025)- Yesterday, Mexico’s National Service of Agro-Alimentary Health, Safety, and Quality (SENASICA) reported a new case of New World Screwworm (NWS) in Ixhuatlan de Madero, Veracruz in Mexico, which is approximately 160 miles northward of the current sterile fly dispersal grid, on the eastern side of the country and 370 miles south of the U.S./Mexico border. This new northward detection comes approximately two months after northern detections were reported in Oaxaca and Veracruz, less than 700 miles away from the U.S. border, which triggered the closure of our ports to Mexican cattle, bison, and horses on May 11, 2025.
@@ -150,12 +160,13 @@ val_docs = next(parquets_iter_batched(split="val"))
 val_text = "\n".join(val_docs)
 
 all_text = [
-    ("news", news_text),
-    ("korean", korean_text),
-    ("code", code_text),
-    ("math", math_text),
-    ("science", science_text),
-    ("climbmix-train", train_text),
+    ("english text", english_text),
+    # ("news", news_text),
+    # ("korean", korean_text),
+    # ("code", code_text),
+    # ("math", math_text),
+    # ("science", science_text),
+    # ("climbmix-train", train_text),
 ]
 if val_text:
     all_text.append(("climbmix-val", val_text))

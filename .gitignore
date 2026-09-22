@@ -5,3 +5,10 @@ checkpoints/
 __pycache__/
 .venv/
 *.log
+nanochat/data/
+nanochat/checkpoints/
+nanochat/.venv/
+nanochat/**/__pycache__/
+*.pt
+*.jsonl
+wandb/
