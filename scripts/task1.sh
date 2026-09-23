@@ -1,4 +1,6 @@
-# run from the allm_1/nanochat folder with this command: ./../scripts/task1.sh, when I tried this from allm_1 I got module errors
+# make the script work relative to the place it is called
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+cd "$SCRIPT_DIR/../nanochat"
 
 # download data
 uv run -m nanochat.dataset -n 2
