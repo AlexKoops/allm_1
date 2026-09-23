@@ -64,6 +64,7 @@ parser.add_argument("--chatcore-max-sample", type=int, default=24, help="max pro
 # Data mixture
 parser.add_argument("--mmlu-epochs", type=int, default=3, help="number of epochs of MMLU in training mixture (teaches Multiple Choice)")
 parser.add_argument("--gsm8k-epochs", type=int, default=4, help="number of epochs of GSM8K in training mixture (teaches Math and Tool Use)")
+parser.add_argument("--set-stage", type=str, default="all", help="set mid-training or sft stage ('mid' for mid-training, 'sft' for sft )")
 args = parser.parse_args()
 user_config = vars(args).copy()
 # -----------------------------------------------------------------------------
@@ -160,14 +161,14 @@ for group in optimizer.param_groups:
 
 # SFT data mixture and DataLoader
 train_tasks = [
-    SmolTalk(split="train"), # 460K rows of general conversations
+    # SmolTalk(split="train"), # 460K rows of general conversations
     *[MMLU(subset="all", split="auxiliary_train") for _ in range(args.mmlu_epochs)], # 100K rows per epoch
     *[GSM8K(subset="main", split="train") for _ in range(args.gsm8k_epochs)], # 8K rows per epoch
 ]
 train_dataset = TaskMixture(train_tasks)
 print0(f"Training mixture: {len(train_dataset):,} rows (MMLU x{args.mmlu_epochs}, GSM8K x{args.gsm8k_epochs})")
 val_dataset = TaskMixture([
-    SmolTalk(split="test"), # 24K rows in test set
+    # SmolTalk(split="test"), # 24K rows in test set
     MMLU(subset="all", split="test", stop=5200), # 14K rows in test set, use only 5.2K to match the train ratios
     GSM8K(subset="main", split="test", stop=420), # 1.32K rows in test set, use only 420 to match the train ratios
 ]) # total: 24K + 5.2K + 0.42K ~= 29.6K rows
