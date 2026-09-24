@@ -1,5 +1,5 @@
 # make the script work relative to the place it is called
-export NANOCHAT_BASE_DIR="/local/$(whoami)/allm_data"
+# export NANOCHAT_BASE_DIR="/local/$(whoami)/allm_data"
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 cd "$SCRIPT_DIR/../nanochat"
 
