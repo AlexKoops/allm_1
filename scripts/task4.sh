@@ -2,7 +2,7 @@ export NANOCHAT_BASE_DIR="/local/$(whoami)/allm_data"
 mkdir -p "$NANOCHAT_BASE_DIR"
 echo "NANOCHAT_BASE_DIR=$NANOCHAT_BASE_DIR"
 
-$TEMPERATURE=$1
+TEMPERATURE=$1
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 cd "$SCRIPT_DIR/../nanochat"
